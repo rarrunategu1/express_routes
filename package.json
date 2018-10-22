@@ -11,5 +11,8 @@
     "url": "git+https://github.com/rarrunategu1/express_routes.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
