@@ -1,0 +1,11 @@
+{
+  "name": "express_route_practice",
+  "version": "1.0.0",
+  "description": "4.a.e Rose Parker Practice with Express Routes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
