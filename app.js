@@ -4,7 +4,8 @@ var bodyParser = require("body-parser");
 var parseUrlencoded = bodyParser.urlencoded({extended: false });
 var queryParser = require('express-query-int');
 
-app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({extended: false }));
 app.use(queryParser({
     parser: parseFloat
 }));
@@ -31,9 +32,9 @@ app.get('/login', function(req, res) {
     res.sendFile('./public/index.html', {root: __dirname});
 });
 app.post('/login', function(req, res){
-    var user = req.body.username;
-    var pass = req.body.password;
-    if(user === "user" && pass === "pass") {
+    const user = req.body.user;
+    const pass = req.body.pass;
+    if(user === "rose" && pass === "hello") {
         res.json(200, { success: 'Logged in' });
     } else {
         res.json(500, { error: 'invalid credentials' });
