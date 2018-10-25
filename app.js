@@ -1,14 +1,11 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
-var parseUrlencoded = bodyParser.urlencoded({extended: false });
 var queryParser = require('express-query-int');
 
 
 app.use(bodyParser.urlencoded({extended: false }));
-app.use(queryParser({
-    parser: parseFloat
-}));
+app.use(bodyParser.json());
 
 //gets my personal name
 app.get('/', function(req, res){
