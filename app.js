@@ -39,6 +39,21 @@ app.post('/login', function(req, res){
     
 });
 
+//posts new item to an array
+
+var iAm = ["Intelligence", "Peace", "Love"];
+
+app.post('/affirm', function(req, res) {
+    const item = req.body.item;
+    const isNewIam = iAm.indexOf(item);
+    if (isNewIam === -1){ //if it's not a duplicate
+        iAm.push(item);
+        res.status(200).json({ result: iAm });
+    } else {
+        res.status(500).json({ error: item+ ' is a duplicate item' });
+     }
+});
+
 app.listen(process.env.PORT, process.env.IP, 8080, function() {
     console.log('Listening on port 8080');
 });
