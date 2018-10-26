@@ -43,7 +43,7 @@ app.post('/login', function(req, res){
 
 var iAm = ["Intelligence", "Peace", "Love"];
 
-app.post('/affirm', function(req, res) {
+app.post('/affirm', function(req, res, next) {
     const item = req.body.item;
     const isNewIam = iAm.indexOf(item);
     if (isNewIam === -1){ //if it's not a duplicate
@@ -52,6 +52,18 @@ app.post('/affirm', function(req, res) {
     } else {
         res.status(500).json({ error: item+ ' is a duplicate item' });
      }
+     next();
+});
+
+app.delete('/delete', function(req, res) {
+    const item = req.body.item;
+   var index = iAm.indexOf(item);
+   if(index !== -1) {
+       iAm.splice(index, 1);
+       res.status(302).json({result: iAm});
+   } else {
+       res.status(404).json("Item you'd like to delete is not found");
+   }
 });
 
 app.listen(process.env.PORT, process.env.IP, 8080, function() {
