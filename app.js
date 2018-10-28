@@ -10,36 +10,49 @@ app.use(bodyParser.json());
 //gets my personal name
 app.get('/', function(req, res){
     res.send('Rose Parker');
-    
 });
 
 //gets input on url and returns it to user
-app.get('/user/:name', function(req, res) {
+app.get('/user/:name', (req, res) =>{
     res.send('Welcome ' + req.params.name + '!');
 });
 
-//gets 2 numbers numone and numtwo on the url query and multiplies them to return as response
-app.get('/user', function(req, res) {
+//Is it a word or number? Send a certain response based on url query parameter
+app.get('/wordornum', (req, res) => {
     var queryParam = req.query;
-   res.send('The product of ' + queryParam.numone +' and ' +queryParam.numtwo + ' is ' + parseInt(queryParam.numone, 10) * parseInt(queryParam.numtwo, 10) + "!");
-  
+    var word = queryParam.word;
+    if(word){
+        JSON.stringify(word);
+        const letter = [];
+        for(let i = 0; i < word.length; i++) {
+        letter.push(i);
+            //setTimeout(function timer(){
+                //letter.push(i)}, 3000);
+        res.write(word.charAt(i) + "\r");
+    }
+    }else{
+  res.send('The product of ' + queryParam.numone +' and ' +queryParam.numtwo + ' is ' + parseInt(queryParam.numone, 10) * parseInt(queryParam.numtwo, 10) + "!");
+    }
 });
 
+//html form for login
 app.get('/login', function(req, res) {
     res.sendFile('./public/index.html', {root: __dirname});
 });
+
+//login if else statement works on server and on postman
 app.post('/login', function(req, res){
     const user = req.body.user;
     const pass = req.body.pass;
     if(user === "rose" && pass === "hello") {
-        res.json(200, { success: 'Logged in' });
+        res.status(200).json({ success: 'Logged in' });
     } else {
-        res.json(500, { error: 'invalid credentials' });
+        res.status(500).json({ error: 'invalid credentials' });
     }
     
 });
 
-//posts new item to an array
+//posts new item to an array in post man
 
 var iAm = ["Intelligence", "Peace", "Love"];
 
@@ -54,6 +67,8 @@ app.post('/affirm', function(req, res, next) {
      }
      next();
 });
+
+//delete route for deleting item in array variable
 
 app.delete('/delete', function(req, res) {
     const item = req.body.item;
